@@ -143,6 +143,11 @@ Resources:
       AllowedOAuthFlowsUserPoolClient: true
       AllowedOAuthFlows:
         - code
+        - implicit
+      ExplicitAuthFlows:
+        - ALLOW_USER_PASSWORD_AUTH
+        - ALLOW_REFRESH_TOKEN_AUTH
+        - ALLOW_USER_SRP_AUTH
       AllowedOAuthScopes:
         - email
         - openid
@@ -187,6 +192,15 @@ Resources:
   ##   CloudFront access logs storage
   CloudFrontAccessLogsBucket:
     Type: AWS::S3::Bucket
+    Properties:
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
 
   ##   Amplify Application for hosting
   AmplifyApp:
