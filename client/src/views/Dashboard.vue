@@ -148,7 +148,7 @@ import { mapState } from "vuex";
 import axios from "axios";
 
 export default {
-  name: "dashboard",
+  name: "UserDashboard",
   data() {
     return {
       apiUrl: process.env.VUE_APP_API_ROOT,
@@ -240,9 +240,7 @@ export default {
         axios
           .delete(`${that.apiUrl}/app/${id}`, {
             headers: {
-              Authorization: window.localStorage.getItem(
-                "cognitoIdentityToken"
-              ),
+              Authorization: window.localStorage.getItem("cognitoIdentityToken"),
             },
           })
           .then((response) => {
