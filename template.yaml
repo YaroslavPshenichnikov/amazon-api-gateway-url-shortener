@@ -115,6 +115,8 @@ Resources:
         - AttributeDataType: String 
           Name: email 
           Required: false
+      LambdaConfig:
+        PreSignUp: !GetAtt PreSignupEmailValidatorFunction.Arn
 
   ##   Cognito user pool domain
   UserPoolDomain:
@@ -238,6 +240,35 @@ Resources:
       AppId: !GetAtt AmplifyApp.AppId
       Description: Master Branch
       EnableAutoBuild: true
+
+  ##   Pre-signup Email Validator Function
+  PreSignupEmailValidatorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/preSignupEmailValidator/
+      Handler: index.handler
+      Runtime: nodejs18.x
+      Description: Validates email domains during Cognito pre-signup
+      MemorySize: 128
+      Timeout: 5
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - logs:CreateLogGroup
+                - logs:CreateLogStream
+                - logs:PutLogEvents
+              Resource: !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*"
+
+  ##   Lambda Permission for Cognito
+  PreSignupEmailValidatorPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref PreSignupEmailValidatorFunction
+      Principal: cognito-idp.amazonaws.com
+      SourceArn: !GetAtt UserPool.Arn
 
 ###################################################################################################
 ##   IAM Roles                                                                                   ##
