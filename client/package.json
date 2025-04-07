@@ -17,14 +17,14 @@
     "vuex": "^4.1.0"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.27.0",
     "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-plugin-eslint": "^5.0.8",
     "@vue/cli-plugin-router": "^5.0.8",
     "@vue/cli-plugin-vuex": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
-    "babel-eslint": "^10.1.0",
-    "eslint": "9.22.0",
-    "eslint-plugin-vue": "^10.0.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-vue": "^9.33.0",
     "sass": "^1.85.1",
     "sass-loader": "^16.0.5",
     "vue-template-compiler": "^2.7.16"
@@ -40,7 +40,7 @@
     ],
     "rules": {},
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "@babel/eslint-parser"
     }
   },
   "browserslist": [
